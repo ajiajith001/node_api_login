@@ -6,15 +6,13 @@ const auth = require("../../middleware/auth");
 
 //display details from database on screen
 
-router.get("/", auth, (req, res, next) => {
+router.get("/", auth, async (req, res, next) => {
 	// res.status(200).json({
 
 	//     msg:'this is project get request'
 	Project.find()
 		.then((result) => {
-			res.status(200).json({
-				projectData: result,
-			});
+			res.status(200).json(result);
 		})
 		.catch((err) => {
 			console.log(err);

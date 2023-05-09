@@ -9,6 +9,7 @@ router.post("/login", async (req, res, next) => {
 	const { username, password } = req.body;
 	// find user
 	const user = await User.findOne({ username: username });
+	const { TOKEN_KEY } = process.env;
 
 	if (!user) {
 		return res.status(400).send("Invalid username");
@@ -21,7 +22,7 @@ router.post("/login", async (req, res, next) => {
 		return res.status(400).send("Incorrect password");
 	}
 
-	const token = jwt.sign({ user_id: user._id }, process.env.TOKEN_KEY, {
+	const token = jwt.sign({ user_id: user._id }, TOKEN_KEY, {
 		expiresIn: "2h",
 	});
 

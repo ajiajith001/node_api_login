@@ -9,6 +9,7 @@ const empRoute = require("./api/routes/employee");
 const userRoute = require("./api/routes/user");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const { MONGO_URI } = process.env;
 
@@ -22,10 +23,11 @@ mongoose.connection.on("connected", (connected) => {
 	console.log("connected with database....");
 });
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/project", projRoute);
+app.use("/projects", projRoute);
 app.use("/event", eveRoute);
 app.use("/employees", empRoute);
 app.use("/user", userRoute);
